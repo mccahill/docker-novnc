@@ -22,11 +22,11 @@ http://kanaka.github.io/noVNC/noVNC/vnc.html
 
 and enter
 
+```
 Host: the public IP of your docker host/server.
-
 Port: 6080
-
 Password: the password set in the docker build file (badpassword if you didn't change anything)
+```
 
 Click connect you should see a nice display within your browser, just right click and open terminal or firefox.
 
@@ -42,6 +42,7 @@ You probably will want to install some other apps.
 ## To Do
 
 Encrypted sessions
+pass the RFBAuth password in as a parameter
 Setup a LXDE version for a more desktop like setup
 
 
@@ -53,4 +54,4 @@ http://dockerteam.com for Docker support.
 
 Paim Pozhil's initial work on a NoVNC Docker container --  https://github.com/paimpozhil/docker-novnc
 
-NoVNC http -- //kanaka.github.io/noVNC/
+NoVNC -- http://kanaka.github.io/noVNC/
