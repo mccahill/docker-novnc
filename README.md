@@ -23,7 +23,9 @@ http://kanaka.github.io/noVNC/noVNC/vnc.html
 and enter
 
 Host: the public IP of your docker host/server.
-Post: 6080
+
+Port: 6080
+
 Password: the password set in the docker build file (badpassword if you didn't change anything)
 
 Click connect you should see a nice display within your browser, just right click and open terminal or firefox.
@@ -45,9 +47,10 @@ Setup a LXDE version for a more desktop like setup
 
 ## Support
 
-### http://dockerteam.com for Docker support.
+http://dockerteam.com for Docker support.
 
 ## Credits
 
-#### Paim Pozhil's initial work on a NoVNC Docker container --  https://github.com/paimpozhil/docker-novnc
-#### NoVNC http -- //kanaka.github.io/noVNC/
+Paim Pozhil's initial work on a NoVNC Docker container --  https://github.com/paimpozhil/docker-novnc
+
+NoVNC http -- //kanaka.github.io/noVNC/
