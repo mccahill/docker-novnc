@@ -4,33 +4,29 @@ docker-novnc
 This is a minimal image which will help you run X server with openbox on the docker container and access it from ANY recent browser without requiring you to do any configuration on the client side.
 
 
-## Use Cases
+## Why?
 
-1. Provide system application accessible over the web easily. Lets say you want to demo a software which runs on your pc over internet without requiring the clients to install any softwares like Teamviwer,etc.
+Provide system application accessible over the web without requiring the clients to install any  VNC client software, perhaps to provide remote access to applications running in docker containers for students doing coursework.
 
-2. You can use this to create a simple use & throw linux envinronment with GUI over cloud or any VPS /Server or even at your laptop. 
 
-Especially useful if you have to give access to your friends who come over for facebook/twittering at your PC. :)
-
-## How to use
+## How do I run this?
 ```
-docker run -td -p 6080:6080 paimpozhil/docker-novnc
+docker build -t novnc .
+docker run -td -p 6080:6080 novnc
 
-#Or if you like to build yourself
-git clone https://github.com/paimpozhil/docker-novnc.git 
-cd docker-novnc
-docker built -t novnc .
-docker run -td -p 6080:6080 paimpozhil/docker-novnc
 ```
 
 Now visit 
 
 http://kanaka.github.io/noVNC/noVNC/vnc.html 
+
 and enter
 
-Host as your Public IP of your docker host/server.
-Post = 2222
-Leave password as blank and click connect you should see a nice display within your browser, just right click and open terminal or firefox.
+Host: the public IP of your docker host/server.
+Post: 6080
+Password: the password set in the docker build file (badpassword if you didn't change anything)
+
+Click connect you should see a nice display within your browser, just right click and open terminal or firefox.
 
 For access within lan / localhost : visit http://localhost:6080 or http://privateip:6080
 if you are running it in a local docker host or lan ip . click connect. You are good to go.
@@ -38,22 +34,20 @@ if you are running it in a local docker host or lan ip . click connect. You are 
 
 ## This is a minimal Image
 
-This comes only with Firefox & Geany text editor installed if you'd like to have more softwares you can freely install them using
-apt-get commands
+Firefox & LibreOffice are installed. 
+You probably will want to install some other apps.
 
-ex: apt-get install libreoffice-base libreoffice-gtk libreoffice-calc
+## To Do
 
-## To DO
-
+Encrypted sessions
 Setup a LXDE version for a more desktop like setup
 
-Add Authentication for VNC.
 
 ## Support
 
-### http://dockerteam.com for all the docker based support.
-
+### http://dockerteam.com for Docker support.
 
 ## Credits
 
-#### NoVNC http://kanaka.github.io/noVNC/
+#### Paim Pozhil's initial work on a NoVNC Docker container --  https://github.com/paimpozhil/docker-novnc
+#### NoVNC http -- //kanaka.github.io/noVNC/
