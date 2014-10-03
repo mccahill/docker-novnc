@@ -25,7 +25,11 @@ docker run -td -p 6080:6080
 
 ``` 
 
+<<<<<<< HEAD
 To access X via NoVNC, you now need to get the web browser to accept your 
+=======
+The access X via NoVNC, you now need to get the web browser to accept your 
+>>>>>>> b51a8b9cd084ef80ac1fafc4c0b725f38190ba1e
 funky self-signed certificate, so go to this URL:
 
 ``` 
@@ -57,8 +61,13 @@ You probably will want to install some other apps.
 
 ## To Do
 
+<<<<<<< HEAD
 - pass the RFBAuth password in as a parameter so we can have a different password for each instance of the container
 - setup a LXDE version for a more desktop like setup
+=======
+pass the RFBAuth password in as a parameter so we can have a different password for each instance of the container
+Setup a LXDE version for a more desktop like setup
+>>>>>>> b51a8b9cd084ef80ac1fafc4c0b725f38190ba1e
 
 
 ## Support
