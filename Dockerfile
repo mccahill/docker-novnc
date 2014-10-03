@@ -22,5 +22,12 @@ RUN x11vnc -storepasswd badpassword ~root/.vnc/passwd
 RUN cd /root && git clone https://github.com/kanaka/noVNC.git 
 ADD startup.sh /startup.sh
 RUN chmod 0755 /startup.sh
+
+# add a self signed cert so we can run with encryption
+# this script presumes you generated the self.pem file already with the command
+#     openssl req -new -x509 -days 365 -nodes -out self.pem -keyout self.pem
+#
+ADD self.pem /root/noVNC/self.pem
+
 CMD /startup.sh
 EXPOSE 6080 
