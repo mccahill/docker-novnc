@@ -39,36 +39,32 @@ RUN apt-get install -y --force-yes --no-install-recommends \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 
+RUN mkdir /etc/startup.aux/
+RUN echo "#Dummy" > /etc/startup.aux/00.sh
+RUN chmod +x /etc/startup.aux/00.sh
 RUN mkdir -p /etc/supervisor/conf.d
 RUN rm /etc/supervisor/supervisord.conf
 
-#
-# create a ubuntu user in the "ubuntu" group with sudo privs:
-# RUN useradd --create-home --shell /bin/bash --user-group --groups adm,sudo ubuntu
-#
-# create a ubuntu user in the "users" group without sudo privs for the sake of some security
-#
-RUN useradd --create-home --shell /bin/bash --no-user-group --groups users ubuntu
+# create an ubuntu user
+#PASS=`pwgen -c -n -1 10`
+#PASS=ubuntu
+#echo "User: ubuntu Pass: $PASS"
+#RUN useradd --create-home --shell /bin/bash --user-group --groups adm,sudo ubuntu
+
+# create an ubuntu user who cannot sudo
+RUN useradd --create-home --shell /bin/bash --user-group ubuntu
 RUN echo "ubuntu:badpassword" | chpasswd
 
-ADD initialize.sh /
+ADD startup.sh /
 ADD supervisord.conf.xorg /etc/supervisor/supervisord.conf
 EXPOSE 6080
 EXPOSE 5900
+EXPOSE 22
 
-#
-# copy some default X configs into the user account
-# note that if you mount an external volume to persist user accounts, 
-# you will probably need to do this in an init script too because
-# the external volume will mask whatever was done to the user directory
-# when the container was built
-#
-ADD configs /configs
-RUN cp -r /configs/desktop-items/* /usr/share/applications/ ; \
-    mkdir -p ~ubuntu/.config ; \
-    cp -r /configs/openbox/* ~ubuntu/.config/ ; \
-    chown -R ubuntu ~ubuntu/.config ; \
-    chgrp -R users ~ubuntu/.config 
+ADD openbox-config /openbox-config
+RUN cp -r /openbox-config/.config ~ubuntu/
+RUN chown -R ubuntu ~ubuntu/.config ; chgrp -R ubuntu ~ubuntu/.config
+RUN rm -r /openbox-config
 
 # noVNC
 ADD noVNC /noVNC/
@@ -76,8 +72,5 @@ ADD noVNC /noVNC/
 RUN mkdir /home/root
 RUN mkdir /home/root/.vnc
 RUN x11vnc -storepasswd foobar /home/root/.vnc/passwd
-ADD xorg.conf /etc/X11/xorg.conf
 
-#ENTRYPOINT ["/usr/bin/supervisord", "--nodaemon", "-c", "/etc/supervisor/supervisord.conf"]
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
-
+ENTRYPOINT ["/startup.sh"]
